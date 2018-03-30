@@ -8,7 +8,7 @@ public class Locators {
 
     public enum WelcomePage {
 
-        LBL_HEADING(By::className, "heading"),
+        LBL_HEADER(By::className, "heading"),
         LBL_FORK_ON_GIT_HUB(By::xpath, "//img[@alt='Fork me on GitHub']"),
         LNK_TESTING_PAGES(By::cssSelector, "#content li > a"),
         LNK_TESTING_PAGE_TEMPLATE_ID(By::xpath, "//div[@id='content']/ul/li[%s]/a"),
@@ -53,12 +53,31 @@ public class Locators {
     }
 
     public enum CheckboxesPage {
-
         CBX_ELEMENT_TEMPLATE(By::xpath, "//form[@id='checkboxes']/input[%s]");
         private String id;
         private Function<String, By> function;
 
         CheckboxesPage(Function<String, By> function, String id) {
+            this.function=function;
+            this.id=id;
+        }
+
+        public By get(){
+            return function.apply(id);
+        }
+
+        public By get(String value){
+            return function.apply(format(id, value));
+        }
+    }
+
+    public enum DropdownPage {
+        LBL_HEADER(By::cssSelector, "h3"),
+        DPN_FIELD(By::cssSelector, "#dropdown");
+        private String id;
+        private Function<String, By> function;
+
+        DropdownPage(Function<String, By> function, String id) {
             this.function=function;
             this.id=id;
         }

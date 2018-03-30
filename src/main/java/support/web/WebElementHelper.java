@@ -78,6 +78,11 @@ public class WebElementHelper {
         select.selectByVisibleText(value);
     }
 
+    public static String getSelectedValueFromDropdown(By locator) {
+        Select select = new Select(waitForElementToBeClickable(locator));
+        return select.getFirstSelectedOption().getText();
+    }
+
     public static WebElement waitForElementToBeClickable(By locator) {
         WebDriverWait webDriverWait = new WebDriverWait(DriverBase.getDriver(), ApplicationProperties.getInteger(WAIT_TIMEOUT_SHT));
         return webDriverWait.until(ExpectedConditions.elementToBeClickable(locator));
@@ -89,6 +94,12 @@ public class WebElementHelper {
 
     public static String getValue(By locator) {
         return waitForVisibility(locator).getAttribute("value");
+    }
+
+    public static void setValueForCheckbox(By locator, boolean value){
+        if (isSelected(locator)!=value){
+            waitForElement(locator).click();
+        }
     }
 
     public static  boolean isSelected(By locator){

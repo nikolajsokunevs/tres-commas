@@ -18,7 +18,7 @@ public class ApplicationProperties {
                     setProperty(ApplicationProperty.WAIT_TIMEOUT.value, "10");
                     setProperty(ApplicationProperty.WAIT_TIMEOUT_LNG.value, "30");
 
-                    setProperty(ApplicationProperty.TARGET_BROWSER.value, "FIREFOX"); //PHANTOMJS, OPERA, SAFARI, EDGE, IE, CHROME, FIREFOX
+                    setProperty(ApplicationProperty.TARGET_BROWSER.value, "CHROME"); //PHANTOMJS, OPERA, SAFARI, EDGE, IE, CHROME, FIREFOX
 
                     //application URL's
                     setProperty(ApplicationProperty.APP_URL.value, "http://the-internet.herokuapp.com");

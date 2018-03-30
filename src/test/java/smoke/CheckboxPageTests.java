@@ -10,7 +10,6 @@ import ui.components.models.CheckboxModel;
 @Feature("Smoke")
 public class CheckboxPageTests extends TestContext {
 
-
     @Test
     @Story("Checkbox Page")
     void verifyCheckboxDefaulValues() {
@@ -25,8 +24,11 @@ public class CheckboxPageTests extends TestContext {
     void verifyUserCanChangeValuesForCheckboxes() {
         open()
                 .goToPage(CheckboxModel.class, "Checkboxes")
-                .verifyCheckboxIsSelected("2")
-                .verifyCheckboxIsNotSelected("1");
+                .setValueForCheckboxes(false, false)
+                .verifyCheckboxIsNotSelected("1")
+                .verifyCheckboxIsNotSelected("2")
+                .setValueForCheckboxes(true, true)
+                .verifyCheckboxIsSelected("1")
+                .verifyCheckboxIsSelected("2");
     }
-
 }

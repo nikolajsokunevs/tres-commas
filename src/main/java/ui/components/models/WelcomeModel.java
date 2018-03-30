@@ -18,8 +18,8 @@ public class WelcomeModel {
     }
 
     public WelcomeModel verifyWelcomePageIsOpened(){
-        assertTrue( isElementDisplayed(Locators.WelcomePage.LBL_HEADING.get()), "Welcome page header is not displayed");
-        assertEquals("Welcome to the-internet", getText(Locators.WelcomePage.LBL_HEADING.get()));
+        assertTrue( isElementDisplayed(Locators.WelcomePage.LBL_HEADER.get()), "Welcome page header is not displayed");
+        assertEquals("Welcome to the-internet", getText(Locators.WelcomePage.LBL_HEADER.get()));
         assertTrue(waitForElements(Locators.WelcomePage.LNK_TESTING_PAGES.get()).size()>0, "Welcome page contains less then one example");
         return this;
     }
