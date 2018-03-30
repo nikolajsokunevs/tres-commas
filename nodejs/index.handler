@@ -1,0 +1,116 @@
+'use strict';
+
+console.log('Loading function');
+
+const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+
+const db = new AWS.DynamoDB.DocumentClient();
+
+const AsyncLock = require('async-lock');
+const lock = new AsyncLock({timeout : 100});
+
+/**
+ * Demonstrates a simple HTTP endpoint using API Gateway. You have full
+ * access to the request and response payload, including headers and
+ * status code.
+ *
+ * To scan a DynamoDB table, make a GET request with the TableName as a
+ * query string parameter. To put, update, or delete an item, make a POST,
+ * PUT, or DELETE request respectively, passing in the payload to the
+ * DynamoDB API as a JSON body.
+ */
+exports.handler = (event, context, callback) => {
+    console.log('Received event id:', event.id);
+    console.log('Received event:', JSON.stringify(event, null, 2));
+    console.log('Received path parameters:', event['pathParameters'])
+
+    const done = (err, res) => callback(null, {
+        statusCode: err ? '400' : '200',
+        body: err ? err.message : JSON.stringify(res),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    var body = null;
+    if (event.body) {
+        body = JSON.parse(event.body);
+    }
+
+    var tableName = "Testusers";
+    switch (event.httpMethod) {
+        case 'DELETE':
+            db.delete({
+                "TableName": tableName,
+                "Key" : {
+                    "id" : body.id,
+                    "fake" : "fake"
+                }
+            }, done);
+            break;
+        case 'GET':
+            var passedId = null;
+            var passedStatus = null;
+            if (event['pathParameters']) {
+                passedId = event['pathParameters']['userIdParam'];
+                passedStatus = event['pathParameters']['userStatus'];
+            }
+
+            if (passedId) {
+                db.get({
+                    "TableName": tableName,
+                        "Key" : {
+                            "id" : passedId,
+                            "fake" : "fake"
+                         }
+                    }, done);
+            } else if (passedStatus) {
+
+                var getLatest = (err, res) => {
+                    res.Items = [sortedItems[0]];
+                    done(err, res);
+                }
+
+                db.scan(
+                {
+                    TableName: tableName,
+                    FilterExpression:'userstatus = :userstatus',
+                    ExpressionAttributeValues:{ ":userstatus" : passedStatus }
+                }, getLatest);
+            } else {
+                db.scan({ TableName: tableName }, done);
+            }
+            break;
+        case 'POST':
+            var datetime = new Date().getTime();
+            db.put({
+                "TableName": tableName,
+                "Item" : {
+                    "id" : body.id,
+                    "fake" : "fake",
+                    "creationdate": datetime,
+                    "firstname": body.firstname,
+                    "lastname": body.lastname,
+                    "extdata": body.extdata,
+                    "modificationdate": body.modificationdate,
+                    "userstatus": body.userstatus
+                }
+                }, done);
+            break;
+        case 'PUT':
+            db.update({
+                "TableName": tableName,
+                "Key" : {
+                    "id" : body.id,
+                    "fake" : "fake"
+                },
+                "UpdateExpression" : "SET userstatus = :s",
+                "ExpressionAttributeValues" : {
+                    ":s" : body.userstatus
+                }
+             }, done);
+            break;
+        default:
+            done(new Error(`Unsupported method "${event.httpMethod}"`));
+    }
+};
