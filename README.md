@@ -6,7 +6,7 @@ Template for new Selenium project.
 - Maven
 - JUnit 5
 - Allure as reporting
-- Page object
+- Page object/method chaining practice
 - WebDriver Factory
 - Locators as ENUM
 - WebElement helper(only explicit waits are allowed)
