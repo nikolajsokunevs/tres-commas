@@ -44,3 +44,5 @@ target
 \.settings
 \.dorsync
 /nbactions.xml
+allure-results
+*.DS_Store
