@@ -9,6 +9,7 @@ Template for new Selenium project.
 - Page object
 - WebDriver Factory
 - Locators as ENUM
+- WebElement helper(only explicit waits are allowed)
 - Docker/Selenoid
 
 # How to run
