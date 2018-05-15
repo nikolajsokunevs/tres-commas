@@ -8,7 +8,7 @@ Template for new Selenium project.
 - Allure as reporting
 - Page object/method chaining practice
 - WebDriver Factory
-- Locators as ENUM
+- Locators as ENUM(Lambda Expressions for dynamic values)
 - WebElement helper(only explicit waits are allowed)
 - Docker/Selenoid
 
