@@ -35,7 +35,7 @@ Video recording:
 ```
 Use link: `http://localhost:4444/video/` to watch all recorded video-files. Click on video - to run.
 
- Java code example(using Selenide):
+ Java code example, with capabilities:
  ```
  DesiredCapabilities dc = DesiredCapabilities.firefox();
         dc.setBrowserName("chrome");
