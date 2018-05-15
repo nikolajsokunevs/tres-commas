@@ -9,7 +9,7 @@ Template for new Selenium project.
 - Page object
 - WebDriver Factory
 - Locators as ENUM
-- Selenoid
+- Docker/Selenoid
 
 # How to run
 
