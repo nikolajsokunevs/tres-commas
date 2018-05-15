@@ -21,11 +21,11 @@ public class ApplicationProperties {
                     setProperty(ApplicationProperty.TARGET_BROWSER.value, "CHROME"); //PHANTOMJS, OPERA, SAFARI, EDGE, IE, CHROME, FIREFOX
 
                     //application URL's
-                    setProperty(ApplicationProperty.APP_URL.value, "http://the-internet.herokuapp.com");
+                    setProperty(ApplicationProperty.APP_URL.value, "http://localhost:8080");
 
                     //Selenium grid settings
                     setProperty(ApplicationProperty.REMOTE_DRIVER.value, "false");
-                    setProperty(ApplicationProperty.SELENIUM_GRID_URL.value, "http://selenium-hub:8080/wd/hub");
+                    setProperty(ApplicationProperty.SELENIUM_GRID_URL.value, "http://selenium-hub:4444/wd/hub");
 
                 }
             });
