@@ -7,7 +7,7 @@ Template for new Selenium project.
 - JUnit 5
 - Allure as reporting
 - Page object/method chaining practice
-- WebDriver Factory
+- WebDriver Factory(one browser per thread)
 - Locators as ENUM(Lambda Expressions for dynamic values)
 - WebElement helper(only explicit waits are allowed)
 - Docker/Selenoid
